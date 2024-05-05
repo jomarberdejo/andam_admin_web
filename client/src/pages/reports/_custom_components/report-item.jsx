@@ -74,9 +74,11 @@ const ReportItem = () => {
             {report?.location}
           </Link>
         </p>
-        <p className="mb-2">
-          <strong>Phone:</strong> {report?.contact}
+        <p className="mb-2 underline link-underline-info  underline-offset-4">
+          <strong>Phone:</strong>{" "}
+          <a href={`tel:${report?.contact}`}>{report?.contact}</a>
         </p>
+
         <p className="mb-2">
           <strong>Reported At:</strong> {report?.reportedAt}
         </p>

@@ -26,8 +26,11 @@ const ResidentProfile = () => {
         <p className="mb-2">
           <strong>Name:</strong> {resident?.fullName}
         </p>
-        <p className="mb-2">
-          <strong>Registered Number:</strong> {resident?.contactNumber}
+        <p className="mb-2 underline link-underline-info  underline-offset-4">
+          <strong>Registered Number:</strong>{" "}
+          <a href={`tel:${resident?.contactNumber}`}>
+            {resident?.contactNumber}
+          </a>
         </p>
 
         <p className="mb-2">

@@ -59,16 +59,15 @@ export const columns = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(report.id)}
+              onClick={() => navigator.clipboard.writeText(report.name)}
             >
-              Copy Report ID
+              Copy Report's Name
             </DropdownMenuItem>
             <DropdownMenuSeparator />
 
             <DropdownMenuItem onClick={() => handleViewClick(report.id)}>
               View
             </DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
