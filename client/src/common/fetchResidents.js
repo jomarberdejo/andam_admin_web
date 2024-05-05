@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { formatDate } from "@/lib/dateFormat";
 import { useGetUser } from "@/customhooks/useGetUser";
 
-export const fetchUserAdmins = () => {
-  const fetchUsers = async () => {
+export const fetchAllResidents = () => {
+  const fetchResidents = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND_API_URL}/api/user`,
+        `${import.meta.env.VITE_BACKEND_API_URL}/api/resident`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -17,28 +17,28 @@ export const fetchUserAdmins = () => {
       );
       const data = await res.data;
 
-      const sortedUsers = data?.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      const sortedResident = data?.sort(
+        (a, b) => new Date(b.registeredAt) - new Date(a.registeredAt)
       );
 
-      const formattedUser = sortedUsers.map((user) => ({
+      const formattedResident = sortedResident.map((user) => ({
         ...user,
-        createdAt: formatDate(user.createdAt),
+        registeredAt: formatDate(user.registeredAt),
       }));
 
-      // const filteredUser = formattedUser.filter(
+      // const filteredUser = formattedResident.filter(
       //   (user) => user.agency === agency
       // );
 
-      return formattedUser;
+      return formattedResident;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   const { data } = useQuery({
-    queryKey: ["users"],
-    queryFn: fetchUsers,
+    queryKey: ["residents"],
+    queryFn: fetchResidents,
   });
 
   return { data };

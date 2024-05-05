@@ -1,7 +1,8 @@
 import { Separator } from "@/components/ui/separator";
-import { agencyDetails } from "./constants/agencyDetails";
+
 import GuestHeader from "./_custom_components/guest-header";
 import GuestFooter from "./_custom_components/guest-footer";
+import { agencyDetails } from "./constants";
 
 const Home = () => {
   return (

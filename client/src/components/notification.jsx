@@ -11,17 +11,17 @@ export function useNotification() {
 
   const renderNotif = (audio, data) => {
     toast({
-      title: `${data.id}`,
+      title: `${data.name}`,
       text: (
         <Button
           variant="outline"
           className="bg-transparent"
           onClick={() => {
-            navigator.clipboard.writeText(data.id);
+            navigator.clipboard.writeText(data.name);
           }}
         >
           <CopyCheck className="w-4 h-4 mr-2" />
-          Copy Id
+          Copy Resident's Name
         </Button>
       ),
       description: `A new report was submitted from ${

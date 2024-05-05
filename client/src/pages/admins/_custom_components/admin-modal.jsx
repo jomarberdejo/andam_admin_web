@@ -1,17 +1,5 @@
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Form, FormField } from "@/components/ui/form"; // Import Form and FormField
+import { Form, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
   FormControl,
@@ -23,10 +11,19 @@ import {
 import { Button } from "@/components/ui/button";
 import { useGetUser } from "@/customhooks/useGetUser";
 import { adminFormSchema } from "../constants";
-import { useState } from "react";
 import axios from "axios";
 import { toast } from "@/components/ui/use-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const AdminModal = ({ children }) => {
   const { agency } = useGetUser();
@@ -44,7 +41,7 @@ const AdminModal = ({ children }) => {
     },
   });
 
-  const { register, handleSubmit, formState } = form;
+  const { handleSubmit, formState } = form;
 
   async function onSubmit(data) {
     try {
@@ -180,9 +177,7 @@ const AdminModal = ({ children }) => {
               />
 
               <SheetClose asChild>
-                <Button type="submit" disabled={!formState.isValid}>
-                  Save changes
-                </Button>
+                <Button type="submit">Save changes</Button>
               </SheetClose>
             </form>
           </Form>

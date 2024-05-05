@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { columns } from "./_custom_components/columns";
 import { formatDate } from "@/lib/dateFormat";
-import { DataTable } from "./_custom_components/admin-table";
 import AdminModal from "./_custom_components/admin-modal";
 import { Plus } from "lucide-react";
 import { fetchUserAdmins } from "@/common/fetchUsers";
+import { DataTable } from "@/common/commonTable";
+
 export default function Admins() {
   const { data } = fetchUserAdmins();
   return (

@@ -18,34 +18,27 @@ export const columns = [
 
   // },
   {
-    accessorKey: "name",
-    header: "Name",
+    accessorKey: "fullName",
+    header: "Full Name",
   },
+
   {
-    accessorKey: "detail",
-    header: "Problem Detail",
-  },
-  {
-    accessorKey: "location",
-    header: "Location",
-  },
-  {
-    accessorKey: "contact",
+    accessorKey: "contactNumber",
     header: "Phone",
   },
   {
-    accessorKey: "reportedAt",
-    header: "Reported At",
+    accessorKey: "registeredAt",
+    header: "Date Registered",
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const navigate = useNavigate(); // Initialize navigate function
+      const navigate = useNavigate();
 
       const report = row.original;
 
       const handleViewClick = (id) => {
-        navigate(`/reports/${id}`);
+        navigate(`/residents/${id}`);
       };
 
       return (
@@ -58,17 +51,12 @@ export const columns = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(report.id)}
-            >
-              Copy Report ID
-            </DropdownMenuItem>
+
             <DropdownMenuSeparator />
 
             <DropdownMenuItem onClick={() => handleViewClick(report.id)}>
-              View
+              View Profile
             </DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

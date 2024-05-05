@@ -48,16 +48,18 @@ model User {
 // }
 
 model Report {
-  id         String  @id @default(uuid())
+  id         String    @id @default(uuid())
   name       String
-  detail     String  @db.LongText
+  detail     String    @db.LongText
   contact    String
   latitude   Float
   longitude  Float
   location   String
-  agency     Agency  @default(MDRRMO)
-  isNew      Boolean @default(true)
+  agency     Agency    @default(MDRRMO)
+  isNew      Boolean   @default(true)
   reportedAt String
+  Resident   Resident? @relation(fields: [residentId], references: [id])
+  residentId String?
 }
 
 model Contact {
@@ -74,25 +76,19 @@ model Entry {
   userId String
 }
 
-// model AgencyNumber {
-//   id String @id @default(uuid())
-//   agency Agency
-//   phoneNumber String
-// }
+model Resident {
+  id               String     @id @default(uuid())
+  fullName         String
+  imageIdentityUrl String
+  contactNumber    String
+  registeredAt     DateTime   @default(now())
+  reports          Report[]
+  Agreement        Agreement?
+}
 
-// model Author {
-//   id    String @id @default(uuid())
-//   name  String
-//   books Book[]
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
-
-// model Book {
-//   id String @id @default(uuid())
-//   title String
-//   Author   Author? @relation(fields: [authorId], references: [id])
-//   authorId String?
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
+model Agreement {
+  id         String   @id @default(uuid())
+  agreedAt   DateTime @default(now())
+  Resident   Resident @relation(fields: [residentId], references: [id])
+  residentId String   @unique
+}

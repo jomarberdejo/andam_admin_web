@@ -11,17 +11,18 @@ import {
 } from "@/components/ui/drawer";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
-import mdrrmoLogo from "@/assets/images/Carigara-Logo.png";
+import { TbUsersGroup } from "react-icons/tb";
 import { AspectRatio } from "./ui/aspect-ratio";
 import { useTheme } from "@/context/ThemeContextProvider";
 
 import { FileStack, Map, Home, UserRoundPlus, UserCog } from "lucide-react";
 import { Badge } from "./ui/badge";
-
+import { GrUserAdmin } from "react-icons/gr";
 import { useAuth } from "@/context/AuthContext";
 import { fetchReports } from "@/common/fetchReports";
 import { sidebarLogos } from "@/lib/sidebarLogo";
 import { useGetUser } from "@/customhooks/useGetUser";
+
 export default function Sidebar() {
   const navigate = useNavigate();
   const { theme } = useTheme();
@@ -101,9 +102,20 @@ export default function Sidebar() {
                   isActive("/admins") ? "bg-muted" : ""
                 } text-muted-foreground px-3 py-2 transition-all hover:text-primary`}
               >
-                <UserRoundPlus className="h-4 w-4" />
+                <GrUserAdmin className="h-4 w-4" />
                 Agency Admins
               </NavLink>
+
+              <NavLink
+                to="/residents"
+                className={`flex items-center gap-3 rounded-lg ${
+                  isActive("/residents") ? "bg-muted" : ""
+                } text-muted-foreground px-3 py-2 transition-all hover:text-primary`}
+              >
+                <TbUsersGroup className="h-4 w-4" />
+                Residents
+              </NavLink>
+
               <NavLink
                 to="/maps"
                 className={`flex items-center gap-3 rounded-lg px-3 py-2 ${

@@ -2,11 +2,17 @@ import mdrcover from "@/assets/images/cover/mdr-cover.jpg";
 import bfpcover from "@/assets/images/cover/bfp-cover.png";
 import lgucover from "@/assets/images/cover/lgu-cover.jpg";
 import pnpcover from "@/assets/images/cover/pnp-cover.jpg";
+import { z } from "zod";
 
 // import mdrcover from "@/assets/images/undraw/undraw3.png";
 // import bfpcover from "@/assets/images/undraw/undraw2.png";
 // import lgucover from "@/assets/images/undraw/undraw3.png";
 // import pnpcover from "@/assets/images/undraw/undraw4.png";
+
+export const LoginFormSchema = z.object({
+  username: z.string().nonempty("Username is required"),
+  password: z.string().nonempty("Password is required"),
+});
 
 export const agencyDetails = [
   {

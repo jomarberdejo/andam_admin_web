@@ -8,17 +8,38 @@ export const handleExportRows = (data) => {
       ...reportItem,
       id: reportItem.id,
     };
-   delete report.isNew
+    delete report.latitude;
+    delete report.longitude;
+    delete report.id;
+    delete report.isNew;
+    delete report.residentId;
+
+    console.log(report);
     return Object.values(report);
   });
 
-  const tableHeaders = Object.keys(data[0])
-  const filteredHeaders = tableHeaders.filter(header => header !== "isNew")
+  const tableHeaders = Object.keys(data[0]);
+
+  const headersToRemove = [
+    "id",
+    "isNew",
+    "latitude",
+    "longitude",
+    "residentId",
+  ];
+
+  const updatedTableHeaders = tableHeaders.filter(
+    (header) => !headersToRemove.includes(header)
+  );
+
+  const filteredHeaders = updatedTableHeaders.filter(
+    (header) => header !== "isNew"
+  );
   // console.log(tableHeaders)
   autoTable(doc, {
     head: [filteredHeaders],
     body: tableData,
   });
 
-  doc.save("mrt-pdf-example.pdf");
+  doc.save("generated-report.pdf");
 };

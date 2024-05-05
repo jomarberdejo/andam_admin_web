@@ -94,10 +94,10 @@ export const columns = [
             <DropdownMenuItem
               onClick={() => navigator.clipboard.writeText(user.id)}
             >
-              Copy User ID
+              View Profile
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            {/* <DropdownMenuSeparator />
+            <DropdownMenuItem>Delete</DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       );

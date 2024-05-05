@@ -10,6 +10,7 @@ import { verifyUser } from "./middleware/middleware.js";
 import userRouter from "./routes/user.router.js";
 import contactRouter from "./routes/contact.router.js";
 import entryRouter from "./routes/entry.router.js";
+import residentRouter from "./routes/resident.router.js";
 dotenv.config();
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 
 app.use("/api/user", userRouter);
+app.use("/api/resident", residentRouter);
 app.use("/api/report", reportRouter);
 app.use("/api/contact", contactRouter);
 app.use("/api/entry", entryRouter);

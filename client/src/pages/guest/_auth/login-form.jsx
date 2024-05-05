@@ -1,14 +1,12 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-
-const LoginFormSchema = z.object({
-  username: z.string().nonempty("Username is required"),
-  password: z.string().nonempty("Password is required"),
-});
+import { Loader2 } from "lucide-react";
+import { LoginFormSchema } from "../constants";
 
 export function LoginForm({ navigate, authenticateUser, toast }) {
   const {
@@ -20,7 +18,10 @@ export function LoginForm({ navigate, authenticateUser, toast }) {
     resolver: zodResolver(LoginFormSchema),
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleLogin = async (data) => {
+    setIsSubmitting(true);
     const isAuth = await authenticateUser(data);
     if (isAuth === true) {
       navigate("/dashboard");
@@ -28,6 +29,7 @@ export function LoginForm({ navigate, authenticateUser, toast }) {
     } else {
       setError("backend", { message: isAuth });
     }
+    setIsSubmitting(false);
   };
 
   const clearBackendError = () => {
@@ -66,7 +68,16 @@ export function LoginForm({ navigate, authenticateUser, toast }) {
       {errors.backend && (
         <span className="text-red-500">{errors.backend.message}</span>
       )}
-      <Button type="submit">Login</Button>
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Authenticating,
+            please wait...
+          </>
+        ) : (
+          "Login"
+        )}
+      </Button>
     </form>
   );
 }

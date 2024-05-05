@@ -26,12 +26,16 @@ import { fetchReports } from "@/common/fetchReports";
 import { fetchUserAdmins } from "@/common/fetchUsers";
 import { useGetUser } from "@/customhooks/useGetUser";
 import UserLoginAnalytics from "./_custom_components/user-login-analytics";
+import { fetchAllResidents } from "@/common/fetchResidents";
+import { GrUserAdmin } from "react-icons/gr";
+import { TbUsersGroup } from "react-icons/tb";
 
 export default function Dashboard() {
   const navigate = useNavigate();
 
   const { reportData } = fetchReports();
-  const { data } = fetchUserAdmins();
+  const { data: adminData } = fetchUserAdmins();
+  const { data: residentData } = fetchAllResidents();
 
   const agencyCounts = {};
   reportData?.forEach((report) => {
@@ -43,7 +47,8 @@ export default function Dashboard() {
     }
   });
 
-  const agencyReports = Object.entries(agencyCounts);
+  // const agencyReports = Object.entries(agencyCounts);
+  console.log(residentData);
 
   return (
     <>
@@ -70,14 +75,29 @@ export default function Dashboard() {
 
                 <Card className="group cursor-pointer">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <UserCheck className="w-6 h-6 mr-2" />
+                    <GrUserAdmin className="w-6 h-6 mr-2" />
+
                     <CardTitle className="text-2xl font-bold group-hover:text-4xl transition-all delay-150">
-                      {data?.length}
+                      {adminData?.length}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="text-xl font-medium ">
                       Total Registered Admin
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="group cursor-pointer">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <TbUsersGroup className="w-6 h-6 mr-2" />
+                    <CardTitle className="text-2xl font-bold group-hover:text-4xl transition-all delay-150">
+                      {residentData?.length}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-xl font-medium ">
+                      Total Registered Residents
                     </div>
                   </CardContent>
                 </Card>

@@ -4,6 +4,7 @@ import {
   useReactTable,
   getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 
 import {
@@ -15,27 +16,32 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
-import CTA from "./call-to-actions";
-import Pagination from "@/common/commonPagination";
+import CTA from "./commonCTA";
+import Pagination from "./commonPagination";
 
 export function DataTable({ columns, data }) {
   const [columnFilters, setColumnFilters] = useState([]);
+  const [sorting, setSorting] = useState([]);
 
   const table = useReactTable({
     data,
     columns,
+
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     state: {
+      sorting,
       columnFilters,
     },
   });
 
   return (
     <>
-      <CTA data={data} table={table} />
+      <CTA table={table} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -60,7 +66,7 @@ export function DataTable({ columns, data }) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className={row?.original.isNew ? "bg-muted/50" : ""}
+                  className={row?.original.isNew ? "bg-red-500" : ""}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

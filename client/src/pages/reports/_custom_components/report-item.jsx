@@ -1,10 +1,11 @@
 import { fetchReports } from "@/common/fetchReports";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const ReportItem = () => {
   const { id } = useParams();
   const { reportData } = fetchReports();
+  const navigate = useNavigate();
   const report = reportData?.find((item) => item.id === id);
 
   const isImage = (url) => {
@@ -50,16 +51,19 @@ const ReportItem = () => {
       )} */}
       <div className="flex flex-col w-full mt-4">
         <h2 className="text-xl font-semibold mb-4">Report Details</h2>
-        <p className="mb-2">
+        {/* <p className="mb-2">
           <strong>ID:</strong> {report?.id}
-        </p>
-        <p className="mb-2">
-          <strong>Name:</strong> {report?.name}
+        </p> */}
+        <p
+          className="mb-2 cursor-pointer underline link-underline-info underline-offset-4"
+          onClick={() => navigate(`/residents/${report.residentId}`)}
+        >
+          <strong>Reported By:</strong> {report?.name}
         </p>
         <p className="mb-2">
           <strong>Problem Detail:</strong> {report?.detail}
         </p>
-        <p className="mb-2 underline underline-offset-4">
+        <p className="mb-2 underline link-underline-info  underline-offset-4">
           <strong>Location: </strong>
           <Link
             to={generateMapLink(

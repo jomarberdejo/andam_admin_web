@@ -10,11 +10,20 @@ const CTA = ({ table, data }) => {
     <>
       <div className="flex justify-between items-start lg:items-center flex-col lg:flex-row gap-4">
         <div className="flex items-center py-4 gap-4">
-          <Input
+          {/* <Input
             placeholder="Filter By Report ID..."
             value={table.getColumn("id")?.getFilterValue() ?? ""}
             onChange={(event) =>
               table.getColumn("id")?.setFilterValue(event.target.value)
+            }
+            className="max-w-md"
+          /> */}
+
+          <Input
+            placeholder="Filter By Resident's Name..."
+            value={table.getColumn("name")?.getFilterValue() ?? ""}
+            onChange={(event) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
             }
             className="max-w-md"
           />

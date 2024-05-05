@@ -176,7 +176,7 @@ const UserLoginAnalytics = () => {
     <div className=" p-4 ">
       <div className="flex items-center space-x-2 mt-2">
         <KeySquare className="h-5 w-5 " />
-        <CardTitle>Logins Over Time</CardTitle>
+        <CardTitle>Administrator's Logins Over Time</CardTitle>
       </div>
 
       <div className="flex flex-wrap gap-2 mb-4 mt-6">
