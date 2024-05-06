@@ -10,6 +10,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useGetUser } from "@/customhooks/useGetUser";
 
 export const columns = [
   // {
@@ -17,9 +25,58 @@ export const columns = [
   //   header: "Report ID",
 
   // },
+
+  {
+    accessorKey: "imageIdentityUrl",
+    header: "Resident's Identity",
+    cell: ({ row }) => (
+      <Dialog>
+        <DialogTrigger asChild>
+          <img
+            alt="image-identity"
+            height={50}
+            src={row?.original.imageIdentityUrl}
+            loading="lazy"
+            className="rounded-[50%] h-[60px] w-[60px] object-cover cursor-pointer"
+          />
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Reporter's Identity</DialogTitle>
+            <img
+              alt="image-identity"
+              height={50}
+              width={50}
+              src={row?.original.imageIdentityUrl}
+              loading="lazy"
+              className=" h-full w-full object-cover"
+            />
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    ),
+  },
+
   {
     accessorKey: "fullName",
     header: "Full Name",
+  },
+
+  {
+    accessorKey: "reports.length",
+    header: "Total Reports Made",
+
+    cell: ({ row }) => {
+      const { agency } = useGetUser();
+      const totalReports = row?.original.reports.filter(
+        (report) => report.agency === agency
+      );
+      return (
+        <span className="text-gray-500 font-medium text-xl">
+          {totalReports.length}
+        </span>
+      );
+    },
   },
 
   {

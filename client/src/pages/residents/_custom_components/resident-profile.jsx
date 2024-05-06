@@ -1,13 +1,17 @@
 import { fetchAllResidents } from "@/common/fetchResidents";
+import { useGetUser } from "@/customhooks/useGetUser";
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
 const ResidentProfile = () => {
+  const { agency } = useGetUser();
   const { id } = useParams();
   const { data: residentData } = fetchAllResidents();
   const resident = residentData?.find((item) => item.id === id);
 
-  console.log(resident);
+  const totalReports = resident.reports.filter(
+    (report) => report.agency === agency
+  );
 
   return (
     <div className="rounded-lg shadow-lg p-6 mb-4 flex justify-center  flex-wrap">
@@ -25,6 +29,11 @@ const ResidentProfile = () => {
         </div>
         <p className="mb-2">
           <strong>Name:</strong> {resident?.fullName}
+        </p>
+
+        <p className="mb-2 flex items-center gap-2">
+          <strong>Total Reports Made:</strong>{" "}
+          <span className="font-medium text-xl">{totalReports.length}</span>
         </p>
         <p className="mb-2 underline link-underline-info  underline-offset-4">
           <strong>Registered Number:</strong>{" "}

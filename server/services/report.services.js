@@ -19,6 +19,7 @@ export const QueryListOfReports = async (agency) => {
         reportedAt: true,
         isNew: true,
         residentId: true,
+        Resident: true,
       },
     });
   } catch (err) {

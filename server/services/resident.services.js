@@ -2,7 +2,11 @@ import prisma from "../lib/prisma.js";
 
 export const QueryListOfResident = async () => {
   try {
-    return await prisma.resident.findMany({});
+    return await prisma.resident.findMany({
+      include: {
+        reports: true,
+      },
+    });
   } catch (err) {
     throw new Error(err.message);
   }
@@ -10,14 +14,12 @@ export const QueryListOfResident = async () => {
 
 export const RegisterResident = async (residentData) => {
   try {
-    const createdResident = await prisma.resident.create({
-      data: residentData,
+    const agreement = await prisma.agreement.create({
+      data: {},
     });
-
-    await prisma.agreement.create({
-      data: {
-        residentId: createdResident.id,
-      },
+    console.log(agreement);
+    const createdResident = await prisma.resident.create({
+      data: { ...residentData, agreementId: agreement.id },
     });
 
     return { resident: createdResident };

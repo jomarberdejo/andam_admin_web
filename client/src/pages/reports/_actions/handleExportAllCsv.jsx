@@ -14,6 +14,7 @@ export const handleExportData = (data) => {
       id: reportItem.id,
     };
     delete report.isNew;
+    delete report.Resident;
     delete report.residentId;
     return report;
   });

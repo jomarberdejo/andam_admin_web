@@ -83,12 +83,12 @@ model Resident {
   contactNumber    String
   registeredAt     DateTime   @default(now())
   reports          Report[]
-  Agreement        Agreement?
+  agreement        Agreement? @relation(fields: [agreementId], references: [id])
+  agreementId      String?
 }
 
 model Agreement {
-  id         String   @id @default(uuid())
-  agreedAt   DateTime @default(now())
-  Resident   Resident @relation(fields: [residentId], references: [id])
-  residentId String   @unique
+  id       String     @id @default(uuid())
+  agreedAt DateTime   @default(now())
+  Resident Resident[]
 }

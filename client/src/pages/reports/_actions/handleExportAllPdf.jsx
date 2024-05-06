@@ -13,6 +13,7 @@ export const handleExportRows = (data) => {
     delete report.id;
     delete report.isNew;
     delete report.residentId;
+    delete report.Resident;
 
     console.log(report);
     return Object.values(report);
@@ -26,6 +27,7 @@ export const handleExportRows = (data) => {
     "latitude",
     "longitude",
     "residentId",
+    "Resident",
   ];
 
   const updatedTableHeaders = tableHeaders.filter(
