@@ -20,10 +20,10 @@ const CTA = ({ table, data }) => {
           /> */}
 
           <Input
-            placeholder="Filter By Resident's Name..."
-            value={table.getColumn("name")?.getFilterValue() ?? ""}
+            placeholder="Filter By Reporter's Name..."
+            value={table.getColumn("fullName")?.getFilterValue() ?? ""}
             onChange={(event) =>
-              table.getColumn("name")?.setFilterValue(event.target.value)
+              table.getColumn("fullName")?.setFilterValue(event.target.value)
             }
             className="max-w-md"
           />

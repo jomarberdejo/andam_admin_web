@@ -17,6 +17,7 @@ import {
   UserCheck,
   FileText,
   ArrowUpRight,
+  MessageCircleIcon,
 } from "lucide-react";
 
 import { TimeNow } from "./_custom_components/time-now";
@@ -29,6 +30,7 @@ import UserLoginAnalytics from "./_custom_components/user-login-analytics";
 import { fetchAllResidents } from "@/common/fetchResidents";
 import { GrUserAdmin } from "react-icons/gr";
 import { TbUsersGroup } from "react-icons/tb";
+import { fetchFeedbacks } from "@/common/fetchFeedbacks";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -36,6 +38,7 @@ export default function Dashboard() {
   const { reportData } = fetchReports();
   const { data: adminData } = fetchUserAdmins();
   const { data: residentData } = fetchAllResidents();
+  const { feedbackData } = fetchFeedbacks();
 
   const agencyCounts = {};
   reportData?.forEach((report) => {
@@ -61,7 +64,10 @@ export default function Dashboard() {
           <Tabs defaultValue="overview" className="space-y-4">
             <TabsContent value="overview" className="space-y-4">
               <div className="grid gap-4 items-center md:grid-cols-2 lg:grid-cols-4">
-                <Card className="group cursor-pointer">
+                <Card
+                  className="group cursor-pointer"
+                  onClick={() => navigate("/reports")}
+                >
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <File className="w-6 h-6 mr-2" />
                     <CardTitle className="text-2xl font-bold group-hover:text-4xl transition-all delay-150">
@@ -73,7 +79,10 @@ export default function Dashboard() {
                   </CardContent>
                 </Card>
 
-                <Card className="group cursor-pointer">
+                <Card
+                  className="group cursor-pointer"
+                  onClick={() => navigate("/admins")}
+                >
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <GrUserAdmin className="w-6 h-6 mr-2" />
 
@@ -88,7 +97,10 @@ export default function Dashboard() {
                   </CardContent>
                 </Card>
 
-                <Card className="group cursor-pointer">
+                <Card
+                  className="group cursor-pointer"
+                  onClick={() => navigate("/residents")}
+                >
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <TbUsersGroup className="w-6 h-6 mr-2" />
                     <CardTitle className="text-2xl font-bold group-hover:text-4xl transition-all delay-150">
@@ -101,6 +113,23 @@ export default function Dashboard() {
                     </div>
                   </CardContent>
                 </Card>
+
+                {/* <Card
+                  className="group cursor-pointer"
+                  onClick={() => navigate("/feedback")}
+                >
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <MessageCircleIcon className="w-6 h-6 mr-2" />
+                    <CardTitle className="text-2xl font-bold group-hover:text-4xl transition-all delay-150">
+                      {feedbackData?.length}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-xl font-medium ">
+                      Total Feedbacks Received
+                    </div>
+                  </CardContent>
+                </Card> */}
 
                 {/* {agencyReports.map(([agency, count]) => {
                   const Icon = agencyIcons[agency] || FileText;

@@ -3,12 +3,12 @@ import { formatDate } from "@/lib/dateFormat";
 import axios from "axios";
 import { useGetUser } from "@/customhooks/useGetUser";
 
-export const fetchReports = () => {
+export const fetchFeedbacks = () => {
   const { agency, id } = useGetUser();
-  const fetchReport = async () => {
+  const fetchFeedback = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND_API_URL}/api/report`,
+        `${import.meta.env.VITE_BACKEND_API_URL}/api/feedback`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -19,26 +19,25 @@ export const fetchReports = () => {
 
       const data = await res.data;
 
-      const sortedReport = data?.sort(
-        (a, b) => new Date(b.reportedAt) - new Date(a.reportedAt)
+      const sortedFeedback = data?.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
 
-      const formattedReport = sortedReport.map((report) => ({
-        ...report,
-        reportedAt: formatDate(report.reportedAt),
-        fullName: report.Resident.fullName,
+      const formattedFeedback = sortedFeedback.map((feedback) => ({
+        ...feedback,
+        createdAt: formatDate(feedback.createdAt),
       }));
 
-      return formattedReport;
+      return formattedFeedback;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const { data: reportData } = useQuery({
-    queryKey: ["reportdata"],
-    queryFn: fetchReport,
+  const { data: feedbackData } = useQuery({
+    queryKey: ["feedbackdata"],
+    queryFn: fetchFeedback,
   });
 
-  return { reportData };
+  return { feedbackData };
 };

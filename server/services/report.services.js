@@ -9,8 +9,6 @@ export const QueryListOfReports = async (agency) => {
       },
       select: {
         id: true,
-        name: true,
-        contact: true,
         detail: true,
         location: true,
         agency: true,

@@ -16,7 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
-import CTA from "./commonCTA";
+import CTA from "@/common/commonCTA";
 import Pagination from "./commonPagination";
 
 export function DataTable({ columns, data }) {

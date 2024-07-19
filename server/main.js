@@ -2,15 +2,16 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import http from "http";
-import { Server } from "socket.io"; // Import socket.io
-
+import { Server } from "socket.io";
+import { verifyUser } from "./middleware/middleware.js";
 import reportRouter from "./routes/report.router.js";
 import authRouter from "./routes/auth.router.js";
-import { verifyUser } from "./middleware/middleware.js";
 import userRouter from "./routes/user.router.js";
 import contactRouter from "./routes/contact.router.js";
 import entryRouter from "./routes/entry.router.js";
 import residentRouter from "./routes/resident.router.js";
+import feedbackRouter from "./routes/feedback.router.js";
+import announcementRouter from "./routes/announcement.router.js";
 dotenv.config();
 
 const app = express();
@@ -24,7 +25,9 @@ app.use("/api/auth", authRouter);
 
 app.use("/api/user", userRouter);
 app.use("/api/resident", residentRouter);
+app.use("/api/feedback", feedbackRouter);
 app.use("/api/report", reportRouter);
+app.use("/api/announcement", announcementRouter);
 app.use("/api/contact", contactRouter);
 app.use("/api/entry", entryRouter);
 // app.get('/', (req, res) => {
@@ -43,6 +46,11 @@ io.on("connection", (socket) => {
   console.log(socket.id);
   socket.on("newUser", (data) => {
     io.emit("newLogin", data);
+  });
+
+  socket.on("report-viewed", (data) => {
+    console.log("Report Viewed", data);
+    io.emit("reportSeen", data);
   });
 
   socket.on("disconnect", () => {

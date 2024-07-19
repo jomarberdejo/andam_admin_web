@@ -56,7 +56,7 @@ export const columns = [
   },
 
   {
-    accessorKey: "name",
+    accessorKey: "fullName",
     header: "Reporter's  Name",
   },
   {
@@ -68,7 +68,7 @@ export const columns = [
     header: "Location",
   },
   {
-    accessorKey: "contact",
+    accessorKey: "Resident.contactNumber",
     header: "Phone",
   },
   {
@@ -78,7 +78,7 @@ export const columns = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const navigate = useNavigate(); // Initialize navigate function
+      const navigate = useNavigate();
 
       const report = row.original;
 
@@ -97,9 +97,9 @@ export const columns = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(report.name)}
+              onClick={() => navigator.clipboard.writeText(report.fullName)}
             >
-              Copy Report's Name
+              Copy Reporter's Name
             </DropdownMenuItem>
             <DropdownMenuSeparator />
 

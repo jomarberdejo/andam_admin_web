@@ -1,5 +1,5 @@
+import React from "react";
 import { BiLogOut, BiX, BiMenu } from "react-icons/bi";
-import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -10,18 +10,43 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { Separator } from "@/components/ui/separator";
-import { TbUsersGroup } from "react-icons/tb";
 import { AspectRatio } from "./ui/aspect-ratio";
 import { useTheme } from "@/context/ThemeContextProvider";
-
-import { FileStack, Map, Home, UserRoundPlus, UserCog } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { GrUserAdmin } from "react-icons/gr";
 import { useAuth } from "@/context/AuthContext";
 import { fetchReports } from "@/common/fetchReports";
 import { sidebarLogos } from "@/lib/sidebarLogo";
 import { useGetUser } from "@/customhooks/useGetUser";
+import {
+  FileStack,
+  Map,
+  Home,
+  MessageCircle,
+  UserCog,
+  UserRoundPlus,
+  Megaphone,
+} from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { TbUsersGroup } from "react-icons/tb";
+import { Button } from "./ui/button";
+
+const SidebarNavItem = ({ to, icon, text, isActive }) => {
+  console.log(isActive);
+  return (
+    <DrawerClose asChild>
+      <NavLink
+        to={to}
+        className={`flex items-center gap-3 rounded-lg px-3 py-2 ${
+          isActive ? "bg-muted text-primary" : ""
+        } text-muted-foreground transition-all hover:text-primary`}
+      >
+        {icon}
+        {text}
+      </NavLink>
+    </DrawerClose>
+  );
+};
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -36,7 +61,6 @@ export default function Sidebar() {
   };
 
   const filterNewReports = reportData?.filter((report) => report.isNew);
-
   const newReportsCount = filterNewReports?.length;
 
   const sidebarLogo = sidebarLogos.find(
@@ -67,74 +91,61 @@ export default function Sidebar() {
 
           <div className="flex-1">
             <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-              <NavLink
+              <SidebarNavItem
                 to="/dashboard"
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 ${
-                  isActive("/dashboard") ? "bg-muted" : ""
-                } text-muted-foreground transition-all hover:text-primary`}
-              >
-                <Home className="h-4 w-4" />
-                Dashboard
-              </NavLink>
-              <NavLink
+                icon={<Home className="h-4 w-4" />}
+                text="Dashboard"
+                isActive={isActive("/dashboard")}
+              />
+              <SidebarNavItem
                 to="/reports"
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 ${
-                  isActive("/reports") ? "bg-muted" : ""
-                } text-muted-foreground transition-all hover:text-primary`}
+                icon={<FileStack className="h-4 w-4" />}
+                text="Reports"
+                isActive={isActive("/reports")}
               >
-                <FileStack className="h-4 w-4" />
-                Reports
-                {newReportsCount > 0 && (
-                  <span className="absolute flex h-3 w-3 right-6 mb-6">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
-                  </span>
-                )}
                 {newReportsCount > 0 && (
                   <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
                     {newReportsCount}
                   </Badge>
                 )}
-              </NavLink>
-              <NavLink
+              </SidebarNavItem>
+              <SidebarNavItem
+                to="/announcement"
+                icon={<Megaphone className="h-4 w-4" />}
+                text="Announcement"
+                isActive={isActive("/announcement")}
+              />
+              <SidebarNavItem
                 to="/admins"
-                className={`flex items-center gap-3 rounded-lg ${
-                  isActive("/admins") ? "bg-muted" : ""
-                } text-muted-foreground px-3 py-2 transition-all hover:text-primary`}
-              >
-                <GrUserAdmin className="h-4 w-4" />
-                Agency Admins
-              </NavLink>
-
-              <NavLink
+                icon={<GrUserAdmin className="h-4 w-4" />}
+                text="Agency Admins"
+                isActive={isActive("/admins")}
+              />
+              <SidebarNavItem
                 to="/residents"
-                className={`flex items-center gap-3 rounded-lg ${
-                  isActive("/residents") ? "bg-muted" : ""
-                } text-muted-foreground px-3 py-2 transition-all hover:text-primary`}
-              >
-                <TbUsersGroup className="h-4 w-4" />
-                Residents
-              </NavLink>
-
-              <NavLink
+                icon={<TbUsersGroup className="h-4 w-4" />}
+                text="Residents"
+                isActive={isActive("/residents")}
+              />
+              <SidebarNavItem
                 to="/maps"
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 ${
-                  isActive("/maps") ? "bg-muted" : ""
-                } text-muted-foreground transition-all hover:text-primary`}
-              >
-                <Map className="h-4 w-4" />
-                Maps
-              </NavLink>
+                icon={<Map className="h-4 w-4" />}
+                text="Maps"
+                isActive={isActive("/maps")}
+              />
               <Separator className="my-4" />
-              <NavLink
+              <SidebarNavItem
+                to="/feedback"
+                icon={<MessageCircle className="h-4 w-4" />}
+                text="Feedbacks"
+                isActive={isActive("/feedback")}
+              />
+              <SidebarNavItem
                 to="/profile"
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 ${
-                  isActive("/profile") ? "bg-muted" : ""
-                } text-muted-foreground transition-all hover:text-primary`}
-              >
-                <UserCog className="h-4 w-4" />
-                Profile
-              </NavLink>
+                icon={<UserCog className="h-4 w-4" />}
+                text="Profile"
+                isActive={isActive("/profile")}
+              />
             </nav>
           </div>
         </div>
@@ -142,9 +153,6 @@ export default function Sidebar() {
           <img
             src={sidebarLogo.logoUrl}
             alt="mdrrmo-logo"
-            // className={`rounded-md object-cover max-w-full w-[180px] block mx-auto ${
-            //   theme === "dark" ? "invert-[100%]" : ""
-            // }`}
             className="rounded-sm object-cover w-[90%] h-full block mx-auto"
           />
         </AspectRatio>

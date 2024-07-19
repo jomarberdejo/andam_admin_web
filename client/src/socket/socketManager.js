@@ -28,6 +28,7 @@ const SocketManager = () => {
     });
 
     socketRef.current.on("newReport", (newReport) => {
+      console.log(newReport);
       if (newReport?.agency === agency) {
         if (audioRef.current) {
           audioRef.current.stop();
@@ -40,7 +41,7 @@ const SocketManager = () => {
 
         audioRef.current = audio;
 
-        renderNotif(audio, newReport);
+        renderNotif(audio, newReport, socketRef);
         audio.play();
         console.log("Socket Run");
       }

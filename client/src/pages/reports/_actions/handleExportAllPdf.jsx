@@ -7,6 +7,7 @@ export const handleExportRows = (data) => {
     const report = {
       ...reportItem,
       id: reportItem.id,
+      
     };
     delete report.latitude;
     delete report.longitude;

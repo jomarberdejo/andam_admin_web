@@ -80,6 +80,23 @@ export const columns = [
   },
 
   {
+    accessorKey: "feedbacks.length",
+    header: "Total Feedbacks Made",
+
+    cell: ({ row }) => {
+      const { agency } = useGetUser();
+      const totalFeedbacks = row?.original.feedbacks.filter(
+        (feedback) => feedback.agency === agency
+      );
+      return (
+        <span className="text-gray-500 font-medium text-xl">
+          {totalFeedbacks.length}
+        </span>
+      );
+    },
+  },
+
+  {
     accessorKey: "contactNumber",
     header: "Phone",
   },
@@ -95,7 +112,7 @@ export const columns = [
       const report = row.original;
 
       const handleViewClick = (id) => {
-        navigate(`/residents/${id}`);
+        navigate(`/resident/${id}`);
       };
 
       return (

@@ -116,7 +116,7 @@ export function AccountForm() {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="Jomar" {...field} />
+                <Input placeholder="Jomar" {...field} disabled={true} />
               </FormControl>
               <FormDescription>
                 This is your public display username

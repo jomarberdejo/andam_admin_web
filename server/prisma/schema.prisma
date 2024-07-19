@@ -14,7 +14,6 @@ datasource db {
 }
 
 enum Agency {
-  NONE
   PNP
   BFP
   LGU
@@ -27,14 +26,15 @@ enum Agency {
 // }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String?
-  username  String   @unique
-  email     String?  @unique
-  password  String
-  agency    Agency   @default(NONE)
-  createdAt DateTime @default(now())
-  Login     Entry[]
+  id           String         @id @default(uuid())
+  name         String?
+  username     String         @unique
+  email        String?        @unique
+  password     String
+  agency       Agency         @default(MDRRMO)
+  createdAt    DateTime       @default(now())
+  Login        Entry[]
+  Announcement Announcement[]
 }
 
 // model User {
@@ -49,9 +49,7 @@ model User {
 
 model Report {
   id         String    @id @default(uuid())
-  name       String
   detail     String    @db.LongText
-  contact    String
   latitude   Float
   longitude  Float
   location   String
@@ -78,17 +76,39 @@ model Entry {
 
 model Resident {
   id               String     @id @default(uuid())
+  username         String     @unique
+  password         String
   fullName         String
+  email            String?    @unique
   imageIdentityUrl String
   contactNumber    String
   registeredAt     DateTime   @default(now())
   reports          Report[]
   agreement        Agreement? @relation(fields: [agreementId], references: [id])
   agreementId      String?
+  feedbacks        Feedback[]
 }
 
 model Agreement {
   id       String     @id @default(uuid())
   agreedAt DateTime   @default(now())
   Resident Resident[]
+}
+
+model Feedback {
+  id             String    @id @default(uuid())
+  feedbackDetail String
+  agency         Agency
+  createdAt      String
+  Resident       Resident? @relation(fields: [residentId], references: [id])
+  residentId     String?
+}
+
+model Announcement {
+  id          String @id @default(uuid())
+  title       String
+  detail      String
+  announcedAt String
+  user        User   @relation(fields: [userId], references: [id])
+  userId      String
 }

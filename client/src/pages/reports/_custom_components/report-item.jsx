@@ -56,9 +56,9 @@ const ReportItem = () => {
         </p> */}
         <p
           className="mb-2 cursor-pointer underline link-underline-info underline-offset-4"
-          onClick={() => navigate(`/residents/${report.residentId}`)}
+          onClick={() => navigate(`/resident/${report.residentId}`)}
         >
-          <strong>Reported By:</strong> {report?.name}
+          <strong>Reported By:</strong> {report?.fullName}
         </p>
         <p className="mb-2">
           <strong>Problem Detail:</strong> {report?.detail}
@@ -76,7 +76,9 @@ const ReportItem = () => {
         </p>
         <p className="mb-2 underline link-underline-info  underline-offset-4">
           <strong>Phone:</strong>{" "}
-          <a href={`tel:${report?.contact}`}>{report?.contact}</a>
+          <a href={`tel:${report?.Resident.contactNumber}`}>
+            {report?.Resident.contactNumber}
+          </a>
         </p>
 
         <p className="mb-2">

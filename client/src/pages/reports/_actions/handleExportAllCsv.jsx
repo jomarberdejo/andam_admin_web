@@ -14,6 +14,9 @@ export const handleExportData = (data) => {
       id: reportItem.id,
     };
     delete report.isNew;
+    delete report.latitude;
+    delete report.longitude;
+    delete report.id;
     delete report.Resident;
     delete report.residentId;
     return report;

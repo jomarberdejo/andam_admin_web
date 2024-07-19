@@ -254,13 +254,13 @@ const UserLoginAnalytics = () => {
         </button>
       </div>
 
-      <div className=" p-4 rounded shadow">
+      <div className=" rounded shadow w-full">
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
             width={500}
             height={300}
             data={filterDataByTimeframe(userActivityArray, timeframe)}
-            margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
+            margin={{ top: 20, right: 30, left: 0, bottom: 10 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
